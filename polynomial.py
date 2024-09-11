@@ -16,6 +16,7 @@ class X(Evaluatable):
     def evaluate(self, x):
         return x
 
+
 class Int(Evaluatable):
     def __init__(self, i):
         self.i = i
@@ -25,6 +26,7 @@ class Int(Evaluatable):
     
     def evaluate(self, x):
         return self.i
+
 
 class Add(Evaluatable):
     def __init__(self, p1, p2):
@@ -36,6 +38,7 @@ class Add(Evaluatable):
     
     def evaluate(self, x):
         return self.p1.evaluate(x) + self.p2.evaluate(x)
+
 
 class Mul(Evaluatable):
     def __init__(self, p1, p2):
@@ -54,6 +57,7 @@ class Mul(Evaluatable):
     def evaluate(self, x):
         return self.p1.evaluate(x) * self.p2.evaluate(x)
     
+
 poly = Add( Add( Int(4), Int(3)), Add( X(), Mul( Int(1), Add( Mul(X(), X()), Int(1)))))
 print(poly)
 
