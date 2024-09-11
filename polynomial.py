@@ -22,19 +22,25 @@ class Int(Evaluatable):
     
     def __repr__(self):
         return str(self.i)
+    
+    def evaluate(self, x):
+        return self.i
 
 class Add(Evaluatable):
     def __init__(self, p1, p2):
-        self.p1 = p1
-        self.p2 = p2
+        self.p1: Evaluatable = p1
+        self.p2: Evaluatable = p2
     
     def __repr__(self):
         return repr(self.p1) + " + " + repr(self.p2)
+    
+    def evaluate(self, x):
+        return self.p1.evaluate(x) + self.p2.evaluate(x)
 
 class Mul(Evaluatable):
     def __init__(self, p1, p2):
-        self.p1 = p1
-        self.p2 = p2
+        self.p1: Evaluatable = p1
+        self.p2: Evaluatable = p2
     
     def __repr__(self):
         if isinstance(self.p1, Add):
@@ -44,6 +50,9 @@ class Mul(Evaluatable):
         if isinstance(self.p2, Add):
             return repr(self.p1) + " * ( " + repr(self.p2) + " )"
         return repr(self.p1) + " * " + repr(self.p2)
+    
+    def evaluate(self, x):
+        return self.p1.evaluate(x) * self.p2.evaluate(x)
     
 poly = Add( Add( Int(4), Int(3)), Add( X(), Mul( Int(1), Add( Mul(X(), X()), Int(1)))))
 print(poly)
