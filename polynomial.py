@@ -4,6 +4,9 @@ class Evaluatable(ABC):
     @abstractmethod
     def evaluate(self, x):
         raise NotImplementedError()
+    
+    def __call__(self, x):
+        return self.evaluate(x)
 
 
 class X(Evaluatable):
@@ -57,9 +60,9 @@ class Mul(Evaluatable):
     def evaluate(self, x):
         return self.p1.evaluate(x) * self.p2.evaluate(x)
     
+if __name__ == '__main__':
+    poly = Add( Add( Int(4), Int(3)), Add( X(), Mul( Int(1), Add( Mul(X(), X()), Int(1)))))
+    print(f'repr(poly) = {repr(poly)}')
 
-poly = Add( Add( Int(4), Int(3)), Add( X(), Mul( Int(1), Add( Mul(X(), X()), Int(1)))))
-print(poly)
-
-poly = Add( Add( Int(4), Int(3)), Add( X(), Mul( Int(1), Add( Mul(X(), X()), Int(1)))))
-print(poly.evaluate(-1))
+    print(f'poly.evaluate(-1) = {poly.evaluate(-1)}')
+    print(f'poly(0) = {poly(0)}')
